@@ -1,0 +1,35 @@
+name: 'Deploy Pages'
+
+on:
+  push:
+    branches:
+      - main
+    paths-ignore:
+      - .gitignore
+      - .nojekyll
+      - LICENSE
+      - README.md
+
+jobs:
+  deploy-pages:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - name: Fetch Gemfile
+        run: .github/scripts/fetch_gemfile.sh
+
+      - name: Setup Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: 2.7
+          bundler-cache: true
+
+      - name: Copy Theme Files
+        run: .github/scripts/copy_theme_files.sh
+
+      - name: Deploy
+        run: .github/scripts/deploy_pages.sh
