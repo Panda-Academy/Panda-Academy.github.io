@@ -53,7 +53,7 @@ Manjaro Sway 的下载地址：[Raspberry Pi 4 Sway](https://manjaro.org/downloa
 
 Sway 不单占用资源少可以高效的管理桌面空间，它还有另一个大杀器：keyboard controlled workflow（直译：键盘控制工作流？），用白话解释：用户可以使用键盘控制窗口（应用）的打开、关闭、移动，做到几乎不用鼠标。下边视频里的用户做了探索性的展示：
 
-<iframe src="//player.bilibili.com/player.html?aid=596224178&bvid=BV1zB4y117Q2&cid=590361596&page=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>
+<iframe height="600" style="width:100%" src="//player.bilibili.com/player.html?aid=596224178&bvid=BV1zB4y117Q2&cid=590361596&page=1&high_quality=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>
 
 我也做了个 gif：左边 **The Matrix** 所谓选择，都是虚幻；右上牛说唐诗宋词；右下监控系统状态。一顿操作猛如虎，定睛一看原地杵，虽然没什么生产力，但是又酷又秀，骚包到没朋友。
 
@@ -264,7 +264,7 @@ Lakka 安装和使用比较简单，按照官方指导：**烧录 -> 启动 -> S
 
 [RetroPie](https://retropie.org.uk) -- 基于 Raspberry Pi OS 的复古游戏机，可以在现有 [Raspberry Pi OS 上安装](https://retropie.org.uk/docs/Manual-Installation/)，也可以直接用[官方镜像](https://retropie.org.uk/download/)安装。由于其系统仍然是 Raspberry Pi OS，所以情怀上来时，可以当游戏机玩，情怀退却之后还可以当微型 Server 用，最大化的利用树莓派。官方有段视频演示如何一步步安装。
 
-<iframe src="//player.bilibili.com/player.html?aid=468866788&bvid=BV1L5411d7AB&cid=712329950&page=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>
+<iframe height="600" style="width:100%" src="//player.bilibili.com/player.html?aid=468866788&bvid=BV1L5411d7AB&cid=712329950&page=1&high_quality=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>
 
 
 
@@ -283,4 +283,3 @@ Lakka 安装和使用比较简单，按照官方指导：**烧录 -> 启动 -> S
 > Cisco/Linksys 在 2003 年发布了 WRT54G 这款无线路由器，有人发现它是基于 Linux 开发的，而 Linux 是**基于 GPL 许可证发布**的，按照该许可证 Cisco 应该把 WRT54G 的**源代码公开**。
 >
 > 2003 年 3 月， **Cisco 迫于公众压力公开了 WRT54G 的源代码**，此后在很多独立开发者的努力下，就出现了一系列基于 Cisco 源码的第三方路由器固件，OpenWrt 就是其中之一。独立开发者们将该系统移植到各种不同厂家的芯片组和设备类型上，更新内核模块添加软件包，使今日的 OpenWrt 日趋完善和强大。
-
