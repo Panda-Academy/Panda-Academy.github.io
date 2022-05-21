@@ -141,9 +141,9 @@ $ pip config set global.index-url https://pypi.tuna.tsinghua.edu.cn/simple
 Writing to /home/panda/.config/pip/pip.conf
 ```
 
-**编辑器**：Visual Studio Code 或者 Vim，具体安装参见 [Go](#1. GO) 部分的说明。
+**编辑器**：Visual Studio Code 或者 Vim，具体安装参见 Go 部分的说明。
 
-**编辑器插件**：Visual Studio Code --[python](https://marketplace.visualstudio.com/search?term=python&target=VSCode&category=Programming%20Languages&sortBy=Relevance)；Vim -- `Plugin 'davidhalter/jedi-vim'`，具体安装参见 [Go](#1. GO) 部分的说明。
+**编辑器插件**：Visual Studio Code --[python](https://marketplace.visualstudio.com/search?term=python&target=VSCode&category=Programming%20Languages&sortBy=Relevance)；Vim -- `Plugin 'davidhalter/jedi-vim'`，具体安装参见 Go 部分的说明。
 
 
 
@@ -163,9 +163,9 @@ OpenJDK 64-Bit Server VM (build 17.0.3+7, mixed mode)
 
 **更新源**：jdk 或者 jre 没有源的概念，不需要更新，但如果开发用到了 maven/gradle（一般都会用到），还是需要更新它们的源。
 
-**编辑器**：Visual Studio Code 或者 Vim（不推荐），具体安装参见 [Go](#1. GO) 部分的说明。
+**编辑器**：Visual Studio Code 或者 Vim（不推荐），具体安装参见 Go 部分的说明。
 
-**编辑器插件**：Visual Studio Code -- [java](https://marketplace.visualstudio.com/search?term=java&target=VSCode&category=Programming%20Languages&sortBy=Relevance)，具体安装参见 [Go](#1. GO) 部分的说明。
+**编辑器插件**：Visual Studio Code -- [java](https://marketplace.visualstudio.com/search?term=java&target=VSCode&category=Programming%20Languages&sortBy=Relevance)，具体安装参见 Go 部分的说明。
 
 
 
