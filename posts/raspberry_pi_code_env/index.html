@@ -1,0 +1,341 @@
+<!DOCTYPE html><html lang="zh-CN" ><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"><meta name="generator" content="Jekyll v4.2.2" /><meta property="og:title" content="树莓派编程语言环境搭建" /><meta property="og:locale" content="zh_CN" /><meta name="description" content="作为微型单板计算机，树莓派可以做很多事情，我们也可以用它来学习很多东西：" /><meta property="og:description" content="作为微型单板计算机，树莓派可以做很多事情，我们也可以用它来学习很多东西：" /><link rel="canonical" href="/posts/raspberry_pi_code_env/" /><meta property="og:url" content="/posts/raspberry_pi_code_env/" /><meta property="og:site_name" content="熊猫学苑" /><meta property="og:type" content="article" /><meta property="article:published_time" content="2022-05-27T00:00:00+08:00" /><meta name="twitter:card" content="summary" /><meta property="twitter:title" content="树莓派编程语言环境搭建" /><meta name="twitter:site" content="@twitter_username" /><meta name="google-site-verification" content="google_meta_tag_verification" /> <script type="application/ld+json"> {"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2022-05-21T23:34:30+08:00","datePublished":"2022-05-27T00:00:00+08:00","description":"作为微型单板计算机，树莓派可以做很多事情，我们也可以用它来学习很多东西：","headline":"树莓派编程语言环境搭建","mainEntityOfPage":{"@type":"WebPage","@id":"/posts/raspberry_pi_code_env/"},"url":"/posts/raspberry_pi_code_env/"}</script><title>树莓派编程语言环境搭建 | 熊猫学苑</title><link rel="apple-touch-icon" sizes="180x180" href="/assets/img/favicons/apple-touch-icon.png"><link rel="icon" type="image/png" sizes="32x32" href="/assets/img/favicons/favicon-32x32.png"><link rel="icon" type="image/png" sizes="16x16" href="/assets/img/favicons/favicon-16x16.png"><link rel="manifest" href="/assets/img/favicons/site.webmanifest"><link rel="shortcut icon" href="/assets/img/favicons/favicon.ico"><meta name="apple-mobile-web-app-title" content="熊猫学苑"><meta name="application-name" content="熊猫学苑"><meta name="msapplication-TileColor" content="#da532c"><meta name="msapplication-config" content="/assets/img/favicons/browserconfig.xml"><meta name="theme-color" content="#ffffff"><link rel="preconnect" href="https://fonts.googleapis.com" ><link rel="dns-prefetch" href="https://fonts.googleapis.com" ><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="dns-prefetch" href="https://fonts.gstatic.com" crossorigin><link rel="preconnect" href="https://fonts.googleapis.com" ><link rel="dns-prefetch" href="https://fonts.googleapis.com" ><link rel="preconnect" href="https://cdn.jsdelivr.net" ><link rel="dns-prefetch" href="https://cdn.jsdelivr.net" ><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lato&family=Source+Sans+Pro:wght@400;600;700;900&display=swap"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.11.2/css/all.min.css"><link rel="stylesheet" href="/assets/css/style.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/afeld/bootstrap-toc@1.0.1/dist/bootstrap-toc.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/magnific-popup@1/dist/magnific-popup.min.css"> <script src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script> <script type="text/javascript"> class ModeToggle { static get MODE_KEY() { return "mode"; } static get MODE_ATTR() { return "data-mode"; } static get DARK_MODE() { return "dark"; } static get LIGHT_MODE() { return "light"; } static get ID() { return "mode-toggle"; } constructor() { if (this.hasMode) { if (this.isDarkMode) { if (!this.isSysDarkPrefer) { this.setDark(); } } else { if (this.isSysDarkPrefer) { this.setLight(); } } } let self = this; /* always follow the system prefers */ this.sysDarkPrefers.addEventListener("change", () => { if (self.hasMode) { if (self.isDarkMode) { if (!self.isSysDarkPrefer) { self.setDark(); } } else { if (self.isSysDarkPrefer) { self.setLight(); } } self.clearMode(); } self.notify(); }); } /* constructor() */ get sysDarkPrefers() { return window.matchMedia("(prefers-color-scheme: dark)"); } get isSysDarkPrefer() { return this.sysDarkPrefers.matches; } get isDarkMode() { return this.mode === ModeToggle.DARK_MODE; } get isLightMode() { return this.mode === ModeToggle.LIGHT_MODE; } get hasMode() { return this.mode != null; } get mode() { return sessionStorage.getItem(ModeToggle.MODE_KEY); } /* get the current mode on screen */ get modeStatus() { if (this.isDarkMode || (!this.hasMode && this.isSysDarkPrefer)) { return ModeToggle.DARK_MODE; } else { return ModeToggle.LIGHT_MODE; } } setDark() { $('html').attr(ModeToggle.MODE_ATTR, ModeToggle.DARK_MODE); sessionStorage.setItem(ModeToggle.MODE_KEY, ModeToggle.DARK_MODE); } setLight() { $('html').attr(ModeToggle.MODE_ATTR, ModeToggle.LIGHT_MODE); sessionStorage.setItem(ModeToggle.MODE_KEY, ModeToggle.LIGHT_MODE); } clearMode() { $('html').removeAttr(ModeToggle.MODE_ATTR); sessionStorage.removeItem(ModeToggle.MODE_KEY); } /* Notify another plugins that the theme mode has changed */ notify() { window.postMessage({ direction: ModeToggle.ID, message: this.modeStatus }, "*"); } } /* ModeToggle */ const toggle = new ModeToggle(); function flipMode() { if (toggle.hasMode) { if (toggle.isSysDarkPrefer) { if (toggle.isLightMode) { toggle.clearMode(); } else { toggle.setLight(); } } else { if (toggle.isDarkMode) { toggle.clearMode(); } else { toggle.setDark(); } } } else { if (toggle.isSysDarkPrefer) { toggle.setLight(); } else { toggle.setDark(); } } toggle.notify(); } /* flipMode() */ </script><body data-spy="scroll" data-target="#toc" data-topbar-visible="true"><div id="sidebar" class="d-flex flex-column align-items-end"><div class="profile-wrapper text-center"><div id="avatar"> <a href="/" class="mx-auto"> <img src="/assets/img/avatar.jpg" alt="avatar" onerror="this.style.display='none'"> </a></div><div class="site-title mt-3"> <a href="/">熊猫学苑</a></div><div class="site-subtitle font-italic">英语、树莓派学习分享</div></div><ul class="w-100"><li class="nav-item"> <a href="/" class="nav-link"> <i class="fa-fw fas fa-home ml-xl-3 mr-xl-3 unloaded"></i> <span>首页</span> </a><li class="nav-item"> <a href="/categories/" class="nav-link"> <i class="fa-fw fas fa-stream ml-xl-3 mr-xl-3 unloaded"></i> <span>分类</span> </a><li class="nav-item"> <a href="/tags/" class="nav-link"> <i class="fa-fw fas fa-tag ml-xl-3 mr-xl-3 unloaded"></i> <span>标签</span> </a><li class="nav-item"> <a href="/archives/" class="nav-link"> <i class="fa-fw fas fa-archive ml-xl-3 mr-xl-3 unloaded"></i> <span>归档</span> </a><li class="nav-item"> <a href="/about/" class="nav-link"> <i class="fa-fw fas fa-info-circle ml-xl-3 mr-xl-3 unloaded"></i> <span>关于</span> </a></ul><div class="sidebar-bottom mt-auto d-flex flex-wrap justify-content-center align-items-center"> <button class="mode-toggle btn" aria-label="Switch Mode"> <i class="fas fa-adjust"></i> </button> <span class="icon-border"></span> <a href="https://github.com/Panda-Academy" aria-label="github" target="_blank" rel="noopener"> <i class="fab fa-github"></i> </a> <a href="https://twitter.com/twitter_username" aria-label="twitter" target="_blank" rel="noopener"> <i class="fab fa-twitter"></i> </a> <a href=" javascript:location.href = 'mailto:' + ['pandaacademy','163.com'].join('@')" aria-label="email" > <i class="fas fa-envelope"></i> </a> <a href="/feed.xml" aria-label="rss" > <i class="fas fa-rss"></i> </a></div></div><div id="topbar-wrapper"><div id="topbar" class="container d-flex align-items-center justify-content-between h-100 pl-3 pr-3 pl-md-4 pr-md-4"> <span id="breadcrumb"> <span> <a href="/"> 首页 </a> </span> <span>树莓派编程语言环境搭建</span> </span> <i id="sidebar-trigger" class="fas fa-bars fa-fw"></i><div id="topbar-title"> 文章</div><i id="search-trigger" class="fas fa-search fa-fw"></i> <span id="search-wrapper" class="align-items-center"> <i class="fas fa-search fa-fw"></i> <input class="form-control" id="search-input" type="search" aria-label="search" autocomplete="off" placeholder="搜索..."> </span> <span id="search-cancel" >取消</span></div></div><div id="main-wrapper" class="d-flex justify-content-center"><div id="main" class="container pl-xl-4 pr-xl-4"><div class="row"><div id="core-wrapper" class="col-12 col-lg-11 col-xl-9 pr-xl-4"><div class="post pl-1 pr-1 pl-md-2 pr-md-2"><h1 data-toc-skip>树莓派编程语言环境搭建</h1><div class="post-meta text-muted"> <span> 发表于 <em class="" data-ts="1653580800" data-df="YYYY-MM-DD" data-toggle="tooltip" data-placement="bottom"> 2022-05-27 </em> </span> <span> 更新于 <em class="" data-ts="1653147270" data-df="YYYY-MM-DD" data-toggle="tooltip" data-placement="bottom"> 2022-05-21 </em> </span><div class="d-flex justify-content-between"> <span> 作者 <em> <a href="https://github.com/Panda-Academy">Panda-Academy</a> </em> </span><div> <span class="readtime" data-toggle="tooltip" data-placement="bottom" title="3504 字"> <em>19 分钟</em>阅读</span></div></div></div><div class="post-content"><p>作为微型单板计算机，树莓派可以做很多事情，我们也可以用它来学习很多东西：</p><ul><li>编程语言学习<li>Linux 系统学习<li>Linux 软件学习<li>各种服务搭建<li>硬件学习</ul><p>如果你已经有了一台计算机（台式机或者笔记本），那上边列出的内容，除了硬件学习需要一台类似树莓派的单板机外，其余的并不需要树莓派，完全可以在自己的计算机上安装虚拟机来搭建出一全新的系统，虚拟机内的系统跟本机环境隔离，不用担心自己原本的系统被搞乱。免费的虚拟机软件有：<a href="https://www.virtualbox.org">VirtualBox</a>、<a href="https://customerconnect.vmware.com/web/vmware/evalcenter?p=fusion-player-personal">VMware Fusion Player</a>，VirtualBox 是使用 GPL 许可的开源软件，完全免费；VMware 只要注册就提供免费个人使用许可。当然，如果你是用来培养小朋友的计算机兴趣，但又不希望小家伙弄乱你的电脑，可以考虑用树莓派这类的单板机，但是随着全球芯片供应的短缺（2020 年开始，2022 年依旧），树莓派价格水涨船高，溢价太多不推荐入手。</p><h2 id="编程语言"><span class="mr-2">编程语言</span><a href="#编程语言" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2><p>提到编程语言，大家最先想到的可能是近些年人工智能领域大热的 <a href="https://www.python.org">Python</a>、互联网行业经久不衰的 <a href="https://www.java.com/en/">Java</a>、系统层/嵌入式开发的 C 语言或者各大语言排行榜：<a href="https://www.tiobe.com/tiobe-index/">TIOBE</a>。</p><p>程序员有时喜欢讨论和对比不同的编程语言，但在人类社会第一台通用计算机 ENIAC 问世时，并没有编程语言供人们使用，那时的“程序员”还是体力劳动者，需要根据不同的计算场景给计算机接线（类似电影《模仿游戏》中图灵破解德国 Enigma 机的接线），后来人们改进了输入方式，把接线改成了由打孔的纸带输入，接线和纸带都可以理解为计算机直接运行的机器语言（0 和 1），再后来人们发明了汇编语言，用助记符代替机器语言中的操作码，用地址符号或标号代替指令或操作数地址，这样人们不再需要用 0/1 和计算机直接沟通了。到了 20 世纪 70 年代，C 语言的诞生为操作系统及其应用程序的开发奠定了基础，人们能够使用更偏向人类的语言进行编程，程序员这个工种也慢慢的从体力劳动者转向了脑力劳动者。来到 20 世纪 90 年代，更多更人类化的语言被创造出来，譬如 Python、Ruby、Java、JavaScript 等等，大大降低了编程难度，不过很遗憾的是中国迄今也没有国产的编程语言，得益于软件领域自由和开源的风潮，这并不是一个大问题，但它多少能从侧面反映国内软件行业的问题，太多的同学投入到了消费、娱乐等领域的开发导致内卷，而基础的操作系统领域却缺乏人才。</p><p>编程语言按照其是否需要被编译，可以分为三类：</p><ul><li><p>编译型</p><p>程序在编写完成后执行前，需要经过编译等步骤<strong>生成机器可以直接执行的程序</strong>的语言被称为编译型语言，典型的编译型语言有：C、Go，其从代码到执行的过程如下：</p><p><strong>代码</strong> —-&gt; 编译器/链接器等工具链 —-&gt; <strong>可执行程序</strong> —-&gt; 机器执行</p><li><p>解释型</p><p>程序在编写完成后可以<strong>由解释器直接执行</strong>的语言被称为解释型语言，典型的有：Python、Ruby，其从代码到执行的过程如下：</p><p><strong>代码</strong> —-&gt; 解释器 —-&gt; <strong>机器码</strong> —-&gt; 机器执行</p><li><p>半编译型（或者半解释型）</p><p>程序在编写完成后执行前，需要<strong>先经过编译等步骤生成中间产物</strong>（譬如字节码），<strong>再由解释器执行</strong>（譬如 JVM）的语言被称为半编译型语言，典型的有：Java、Groovy，其从代码到执行的过程如下：</p><p><strong>代码</strong> —-&gt; 编译器 —-&gt; <strong>字节码</strong> —-&gt; 解释器 —-&gt; <strong>机器码</strong> —-&gt; 机器执行</p></ul><p>通常来说，<strong>编译型语言的执行效率高于解释型</strong>，因为编译型语言的可执行程序已提前编译好，机器直接读到内存里就可以运行，而解释型语言的解释器则是通过“同声传译”的方式将代码转译给机器的；相对的，<strong>解释型语言的跨平台特性要好于编译型</strong>，相同的代码只需要在不同的平台（Linux、macOS、Window）安装对应的解释器就能执行，而编译型语言需要编译不同的平台版本才能实现跨平台，甚至有时还需要微调代码才能兼容各平台。</p><h2 id="开发环境"><span class="mr-2">开发环境</span><a href="#开发环境" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2><p>以 Go、Python、Java 这三个具有代表性的编程语言说明下如何搭建开发环境，都是两步：安装语言本身 + 安装 IDE 或者编辑器。</p><p>macOS 和 Windows 不用赘述，无论编程语言还是 IDE，到官网下载安装包再一路按安装指导点鼠标就行了（macOS 使用 <a href="https://brew.sh">Homebrew</a> 安装会更方便）。</p><p>官网及 IDE：</p><p><a href="https://go.dev">Go</a> – <a href="https://www.jetbrains.com/go/">GoLand</a> 目前没有免费版，但学生、教师、开源项目的开发人员可以免费使用。</p><p><a href="https://www.python.org">Python</a> – <a href="https://www.jetbrains.com/pycharm/">PyCharm</a> 社区版免费</p><p><a href="https://www.java.com/en/">Java</a> –<a href="https://www.jetbrains.com/idea/">IntelliJ IDEA</a> 社区版免费</p><p>此外，还有微软出品的通用编辑器 <a href="https://code.visualstudio.com">Visual Studio Code</a> 对很多编程语言都适用，有非常多的插件。</p><p>下边用安装 Manjaro 系统的树莓派 4B 示例 Linux 上如何搭建开发环境，不同的发行版除了包管理器不同，其它路数都一样。</p><h3 id="1-go"><span class="mr-2">1. Go</span><a href="#1-go" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3><p><strong>安装语言</strong></p><div class="language-shell highlighter-rouge"><div class="code-header"> <span data-label-text="Shell"><i class="fas fa-code small"></i></span> <button aria-label="copy" data-title-succeed="已复制！"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+</pre><td class="rouge-code"><pre><span class="nv">$ </span><span class="nb">sudo </span>pacman <span class="nt">-S</span> go
+<span class="c"># 检查是否安装成功</span>
+<span class="nv">$ </span>go version
+go version go1.18.1 linux/arm64
+</pre></table></code></div></div><p><strong>更新源</strong></p><div class="language-shell highlighter-rouge"><div class="code-header"> <span data-label-text="Shell"><i class="fas fa-code small"></i></span> <button aria-label="copy" data-title-succeed="已复制！"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+</pre><td class="rouge-code"><pre><span class="nv">$ </span>go <span class="nb">env</span> <span class="nt">-w</span> <span class="nv">GO111MODULE</span><span class="o">=</span>on
+<span class="c"># 七牛</span>
+<span class="nv">$ </span>go <span class="nb">env</span> <span class="nt">-w</span> <span class="nv">GOPROXY</span><span class="o">=</span>https://goproxy.cn,direct
+</pre></table></code></div></div><p><strong>编辑器</strong>：树莓派上安装不了专用的 IDE，只能选择 Visual Studio Code 或者 Vim 这类通用编辑器。</p><div class="language-shell highlighter-rouge"><div class="code-header"> <span data-label-text="Shell"><i class="fas fa-code small"></i></span> <button aria-label="copy" data-title-succeed="已复制！"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+</pre><td class="rouge-code"><pre><span class="c"># Visual Studio Code</span>
+<span class="nv">$ </span><span class="nb">sudo </span>pacman <span class="nt">-S</span> code
+<span class="c"># Vim</span>
+<span class="nv">$ </span><span class="nb">sudo </span>pacman <span class="nt">-S</span> vim
+</pre></table></code></div></div><p><strong>编辑器插件</strong>：主要有语法高亮、错误检查、自动提示等，帮助开发人员快速书写代码。</p><p>Visual Studio Code：<a href="https://marketplace.visualstudio.com/search?term=go&amp;target=VSCode&amp;category=Programming%20Languages&amp;sortBy=Relevance">go</a></p><p>Vim 要先安装插件管理器，再安装插件，需要能访问 Github。</p><div class="language-shell highlighter-rouge"><div class="code-header"> <span data-label-text="Shell"><i class="fas fa-code small"></i></span> <button aria-label="copy" data-title-succeed="已复制！"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+</pre><td class="rouge-code"><pre><span class="c"># 安装插件管理器 Vundle，也可以选择其它的</span>
+<span class="nv">$ </span>git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+
+<span class="c"># 新建 ~/.vimrc 文件，添加以下插件配置内容</span>
+filetype off
+<span class="nb">set </span>rtp+<span class="o">=</span>~/.vim/bundle/Vundle.vim
+call vundle#begin<span class="o">()</span>
+Plugin <span class="s1">'fatih/vim-go'</span>
+call vundle#end<span class="o">()</span>
+filetype plugin indent on
+
+<span class="c"># 安装插件</span>
+<span class="nv">$ </span>vim +PluginInstall +qall
+</pre></table></code></div></div><h3 id="2-python"><span class="mr-2">2. Python</span><a href="#2-python" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3><p><strong>安装语言</strong></p><div class="language-shell highlighter-rouge"><div class="code-header"> <span data-label-text="Shell"><i class="fas fa-code small"></i></span> <button aria-label="copy" data-title-succeed="已复制！"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+</pre><td class="rouge-code"><pre><span class="c"># 安装 python</span>
+<span class="nv">$ </span><span class="nb">sudo </span>pacman <span class="nt">-S</span> python
+<span class="c"># 安装库管理器</span>
+<span class="nv">$ </span><span class="nb">sudo </span>pacman <span class="nt">-S</span> python-pip
+
+<span class="c"># 检查是否安装成功</span>
+<span class="nv">$ </span>python <span class="nt">--version</span>
+Python 3.10.4
+<span class="nv">$ </span>pip <span class="nt">--version</span>
+pip 21.0 from /usr/lib/python3.10/site-packages/pip <span class="o">(</span>python 3.10<span class="o">)</span>
+</pre></table></code></div></div><p><strong>更新源</strong></p><div class="language-shell highlighter-rouge"><div class="code-header"> <span data-label-text="Shell"><i class="fas fa-code small"></i></span> <button aria-label="copy" data-title-succeed="已复制！"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+</pre><td class="rouge-code"><pre><span class="nv">$ </span>pip config <span class="nb">set </span>global.index-url https://pypi.tuna.tsinghua.edu.cn/simple
+Writing to /home/panda/.config/pip/pip.conf
+</pre></table></code></div></div><p><strong>编辑器</strong>：Visual Studio Code 或者 Vim，具体安装参见 Go 部分的说明。</p><p><strong>编辑器插件</strong>：Visual Studio Code –<a href="https://marketplace.visualstudio.com/search?term=python&amp;target=VSCode&amp;category=Programming%20Languages&amp;sortBy=Relevance">python</a>；Vim – <code class="language-plaintext highlighter-rouge">Plugin 'davidhalter/jedi-vim'</code>，具体安装参见 Go 部分的说明。</p><h3 id="3-java"><span class="mr-2">3. Java</span><a href="#3-java" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3><p><strong>安装 JDK</strong></p><div class="language-shell highlighter-rouge"><div class="code-header"> <span data-label-text="Shell"><i class="fas fa-code small"></i></span> <button aria-label="copy" data-title-succeed="已复制！"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+</pre><td class="rouge-code"><pre><span class="c"># jdk17 是 LTS （Long Term Supported，长期支持版本）</span>
+<span class="nv">$ </span><span class="nb">sudo </span>pacman <span class="nt">-S</span> jdk17-openjdk
+<span class="c"># 检查是否安装成功</span>
+<span class="nv">$ </span>java <span class="nt">--version</span>
+openjdk 17.0.3 2022-04-19
+OpenJDK Runtime Environment <span class="o">(</span>build 17.0.3+7<span class="o">)</span>
+OpenJDK 64-Bit Server VM <span class="o">(</span>build 17.0.3+7, mixed mode<span class="o">)</span>
+</pre></table></code></div></div><p><strong>更新源</strong>：jdk 或者 jre 没有源的概念，不需要更新，但如果开发用到了 maven/gradle（一般都会用到），还是需要更新它们的源。</p><p><strong>编辑器</strong>：Visual Studio Code 或者 Vim（不推荐），具体安装参见 Go 部分的说明。</p><p><strong>编辑器插件</strong>：Visual Studio Code – <a href="https://marketplace.visualstudio.com/search?term=java&amp;target=VSCode&amp;category=Programming%20Languages&amp;sortBy=Relevance">java</a>，具体安装参见 Go 部分的说明。</p><h2 id="hello-world"><span class="mr-2">Hello World</span><a href="#hello-world" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2><p>环境搭建好之后的第一步就是跑个 Hello World 了，下边三种语言分别各出一个命令行版（cmd）和一个网页版（web）。</p><h3 id="1-go-1"><span class="mr-2">1. Go</span><a href="#1-go-1" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3><div class="language-shell highlighter-rouge"><div class="code-header"> <span data-label-text="Shell"><i class="fas fa-code small"></i></span> <button aria-label="copy" data-title-succeed="已复制！"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+</pre><td class="rouge-code"><pre><span class="c"># 创建文件夹</span>
+<span class="nv">$ </span><span class="nb">mkdir </span>go <span class="o">&amp;&amp;</span> <span class="nb">cd </span>go
+</pre></table></code></div></div><h4 id="命令行版"><span class="mr-2">命令行版</span><a href="#命令行版" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4><p>新建 <strong>hello.go</strong> 文件，输入以下内容。</p><div class="language-go highlighter-rouge"><div class="code-header"> <span data-label-text="Go"><i class="fas fa-code small"></i></span> <button aria-label="copy" data-title-succeed="已复制！"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+</pre><td class="rouge-code"><pre><span class="k">package</span> <span class="n">main</span>
+
+<span class="k">import</span> <span class="s">"fmt"</span>
+
+<span class="k">func</span> <span class="n">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="n">fmt</span><span class="o">.</span><span class="n">Println</span><span class="p">(</span><span class="s">"Hello, World!"</span><span class="p">)</span>
+<span class="p">}</span>
+</pre></table></code></div></div><div class="language-shell highlighter-rouge"><div class="code-header"> <span data-label-text="Shell"><i class="fas fa-code small"></i></span> <button aria-label="copy" data-title-succeed="已复制！"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+</pre><td class="rouge-code"><pre><span class="c"># 直接运行</span>
+<span class="nv">$ </span>go run hello.go
+Hello, World!
+
+<span class="c"># 或者编译后运行</span>
+<span class="nv">$ </span>go build hello.go <span class="o">&amp;&amp;</span> ./hello
+Hello, World!
+</pre></table></code></div></div><h4 id="网页版"><span class="mr-2">网页版</span><a href="#网页版" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4><p>新建 <strong>hello_server.go</strong> 文件，输入以下内容。</p><div class="language-go highlighter-rouge"><div class="code-header"> <span data-label-text="Go"><i class="fas fa-code small"></i></span> <button aria-label="copy" data-title-succeed="已复制！"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+</pre><td class="rouge-code"><pre><span class="k">package</span> <span class="n">main</span>
+
+<span class="k">import</span> <span class="p">(</span>
+    <span class="s">"fmt"</span>
+    <span class="s">"net/http"</span>
+<span class="p">)</span>
+
+<span class="k">func</span> <span class="n">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="n">http</span><span class="o">.</span><span class="n">HandleFunc</span><span class="p">(</span><span class="s">"/"</span><span class="p">,</span> <span class="n">HelloServer</span><span class="p">)</span>
+    <span class="n">http</span><span class="o">.</span><span class="n">ListenAndServe</span><span class="p">(</span><span class="s">":8080"</span><span class="p">,</span> <span class="no">nil</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="k">func</span> <span class="n">HelloServer</span><span class="p">(</span><span class="n">w</span> <span class="n">http</span><span class="o">.</span><span class="n">ResponseWriter</span><span class="p">,</span> <span class="n">r</span> <span class="o">*</span><span class="n">http</span><span class="o">.</span><span class="n">Request</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">fmt</span><span class="o">.</span><span class="n">Fprintf</span><span class="p">(</span><span class="n">w</span><span class="p">,</span> <span class="s">"Hello, %s!"</span><span class="p">,</span> <span class="n">r</span><span class="o">.</span><span class="n">URL</span><span class="o">.</span><span class="n">Path</span><span class="p">[</span><span class="m">1</span><span class="o">:</span><span class="p">])</span>
+<span class="p">}</span>
+</pre></table></code></div></div><div class="language-shell highlighter-rouge"><div class="code-header"> <span data-label-text="Shell"><i class="fas fa-code small"></i></span> <button aria-label="copy" data-title-succeed="已复制！"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+</pre><td class="rouge-code"><pre><span class="c"># 直接运行，再在浏览器中访问：http://127.0.0.1:8080/World</span>
+<span class="nv">$ </span>go run hello_server.go
+
+<span class="c"># 或者编译后运行，再在浏览器中访问：http://127.0.0.1:8080/World</span>
+<span class="nv">$ </span>go build hello_server.go <span class="o">&amp;&amp;</span> ./hello_server
+</pre></table></code></div></div><p><img data-src="/images/2022-05-27-raspberry_pi_code_env/hello_world.jpg" alt="hello_world" data-proofer-ignore></p><h3 id="2-pyhon"><span class="mr-2">2. Pyhon</span><a href="#2-pyhon" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3><div class="language-shell highlighter-rouge"><div class="code-header"> <span data-label-text="Shell"><i class="fas fa-code small"></i></span> <button aria-label="copy" data-title-succeed="已复制！"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+</pre><td class="rouge-code"><pre><span class="c"># 创建文件夹</span>
+<span class="nv">$ </span><span class="nb">mkdir </span>python <span class="o">&amp;&amp;</span> <span class="nb">cd </span>python
+</pre></table></code></div></div><h4 id="命令行版-1"><span class="mr-2">命令行版</span><a href="#命令行版-1" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4><p>新建 <strong>hello.py</strong> 文件，输入以下内容。</p><div class="language-python highlighter-rouge"><div class="code-header"> <span data-label-text="Python"><i class="fas fa-code small"></i></span> <button aria-label="copy" data-title-succeed="已复制！"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre><td class="rouge-code"><pre><span class="k">print</span><span class="p">(</span><span class="s">"Hello, World!"</span><span class="p">)</span>
+</pre></table></code></div></div><div class="language-shell highlighter-rouge"><div class="code-header"> <span data-label-text="Shell"><i class="fas fa-code small"></i></span> <button aria-label="copy" data-title-succeed="已复制！"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+</pre><td class="rouge-code"><pre><span class="c"># 运行</span>
+<span class="nv">$ </span>python hello.py
+Hello, World!
+</pre></table></code></div></div><h4 id="网页版-1"><span class="mr-2">网页版</span><a href="#网页版-1" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4><p>新建 <strong>hello_server.py</strong> 文件，输入以下内容。</p><div class="language-python highlighter-rouge"><div class="code-header"> <span data-label-text="Python"><i class="fas fa-code small"></i></span> <button aria-label="copy" data-title-succeed="已复制！"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+</pre><td class="rouge-code"><pre><span class="kn">import</span> <span class="nn">http.server</span>
+<span class="kn">import</span> <span class="nn">socketserver</span>
+<span class="kn">from</span> <span class="nn">http</span> <span class="kn">import</span> <span class="n">HTTPStatus</span>
+
+
+<span class="k">class</span> <span class="nc">Handler</span><span class="p">(</span><span class="n">http</span><span class="p">.</span><span class="n">server</span><span class="p">.</span><span class="n">SimpleHTTPRequestHandler</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">do_GET</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">send_response</span><span class="p">(</span><span class="n">HTTPStatus</span><span class="p">.</span><span class="n">OK</span><span class="p">)</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">end_headers</span><span class="p">()</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">wfile</span><span class="p">.</span><span class="n">write</span><span class="p">(</span><span class="sa">b</span><span class="s">'Hello, World!'</span><span class="p">)</span>
+
+
+<span class="n">httpd</span> <span class="o">=</span> <span class="n">socketserver</span><span class="p">.</span><span class="n">TCPServer</span><span class="p">((</span><span class="s">''</span><span class="p">,</span> <span class="mi">8080</span><span class="p">),</span> <span class="n">Handler</span><span class="p">)</span>
+<span class="n">httpd</span><span class="p">.</span><span class="n">serve_forever</span><span class="p">()</span>
+</pre></table></code></div></div><div class="language-shell highlighter-rouge"><div class="code-header"> <span data-label-text="Shell"><i class="fas fa-code small"></i></span> <button aria-label="copy" data-title-succeed="已复制！"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+</pre><td class="rouge-code"><pre><span class="c"># 运行，在浏览器中访问：http://127.0.0.1:8080</span>
+<span class="nv">$ </span>python hello_server.py
+</pre></table></code></div></div><h3 id="3-java-1"><span class="mr-2">3. Java</span><a href="#3-java-1" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3><div class="language-shell highlighter-rouge"><div class="code-header"> <span data-label-text="Shell"><i class="fas fa-code small"></i></span> <button aria-label="copy" data-title-succeed="已复制！"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+</pre><td class="rouge-code"><pre><span class="c"># 创建文件夹</span>
+<span class="nv">$ </span><span class="nb">mkdir </span>java <span class="o">&amp;&amp;</span> <span class="nb">cd </span>java
+</pre></table></code></div></div><h4 id="命令行版-2"><span class="mr-2">命令行版</span><a href="#命令行版-2" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4><p>新建 <strong>HelloWorld.py</strong> 文件，输入以下内容。</p><div class="language-java highlighter-rouge"><div class="code-header"> <span data-label-text="Java"><i class="fas fa-code small"></i></span> <button aria-label="copy" data-title-succeed="已复制！"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+</pre><td class="rouge-code"><pre><span class="kd">class</span> <span class="nc">HelloWorld</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Hello, World!"</span><span class="o">);</span> 
+    <span class="o">}</span>
+<span class="o">}</span>
+</pre></table></code></div></div><div class="language-shell highlighter-rouge"><div class="code-header"> <span data-label-text="Shell"><i class="fas fa-code small"></i></span> <button aria-label="copy" data-title-succeed="已复制！"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+</pre><td class="rouge-code"><pre><span class="c"># 编译字节码</span>
+<span class="nv">$ </span>javac HelloWorld.java
+<span class="c"># 运行</span>
+<span class="nv">$ </span>java HelloWorld
+Hello, World!
+</pre></table></code></div></div><h4 id="网页版-2"><span class="mr-2">网页版</span><a href="#网页版-2" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4><p>纯手写有一点麻烦，用在线的 <a href="https://start.spring.io">Spring Initializr</a> 生成一个，Dependencies 添加 <strong>Spring Web</strong> 依赖后点击 <strong>Genrate</strong> 下载，下载文件为 <strong>demo.zip</strong>。</p><p><img data-src="/images/2022-05-27-raspberry_pi_code_env/spring_initialize.jpg" alt="spring_initialize" data-proofer-ignore></p><div class="language-shell highlighter-rouge"><div class="code-header"> <span data-label-text="Shell"><i class="fas fa-code small"></i></span> <button aria-label="copy" data-title-succeed="已复制！"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+</pre><td class="rouge-code"><pre><span class="c"># 拷贝 demo.zip 到 java 目录</span>
+<span class="nv">$ </span><span class="nb">cp</span> ~/Downloads/demo.zip ./
+<span class="c"># 解压</span>
+<span class="nv">$ </span>unzip demo.zip <span class="o">&amp;&amp;</span> <span class="nb">cd </span>demo
+</pre></table></code></div></div><p>更改文件夹中 <strong>src/main/java/com/example/demo/DemoApplication.java</strong> 为如下内容：</p><div class="language-java highlighter-rouge"><div class="code-header"> <span data-label-text="Java"><i class="fas fa-code small"></i></span> <button aria-label="copy" data-title-succeed="已复制！"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+</pre><td class="rouge-code"><pre><span class="kn">package</span> <span class="nn">com.example.demo</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">org.springframework.boot.SpringApplication</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.boot.autoconfigure.SpringBootApplication</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.web.bind.annotation.GetMapping</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.web.bind.annotation.RequestParam</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.web.bind.annotation.RestController</span><span class="o">;</span>
+
+<span class="nd">@SpringBootApplication</span>
+<span class="nd">@RestController</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">DemoApplication</span> <span class="o">{</span>
+
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+        <span class="nc">SpringApplication</span><span class="o">.</span><span class="na">run</span><span class="o">(</span><span class="nc">DemoApplication</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="n">args</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="nd">@GetMapping</span><span class="o">(</span><span class="s">"/"</span><span class="o">)</span>
+    <span class="kd">public</span> <span class="nc">String</span> <span class="nf">hello</span><span class="o">(</span><span class="nd">@RequestParam</span><span class="o">(</span><span class="n">value</span> <span class="o">=</span> <span class="s">"name"</span><span class="o">,</span> <span class="n">defaultValue</span> <span class="o">=</span> <span class="s">"World"</span><span class="o">)</span> <span class="nc">String</span> <span class="n">name</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="nc">String</span><span class="o">.</span><span class="na">format</span><span class="o">(</span><span class="s">"Hello, %s!"</span><span class="o">,</span> <span class="n">name</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</pre></table></code></div></div><p>运行也有点麻烦，需要提前安装 Maven 并更换为国内源：</p><div class="language-shell highlighter-rouge"><div class="code-header"> <span data-label-text="Shell"><i class="fas fa-code small"></i></span> <button aria-label="copy" data-title-succeed="已复制！"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+</pre><td class="rouge-code"><pre><span class="c"># 安装 maven</span>
+<span class="nv">$ </span><span class="nb">sudo </span>pacman <span class="nt">-S</span> maven
+<span class="c"># 拷贝配置文件到用户目录</span>
+<span class="nv">$ </span><span class="nb">cp</span> /opt/maven/conf/settings.xml ~/.m2/
+</pre></table></code></div></div><p>在 <strong>~/.m2/settings.xml</strong> 文件 mirrors 部分添加以下内容：</p><div class="language-xml highlighter-rouge"><div class="code-header"> <span data-label-text="XML"><i class="fas fa-code small"></i></span> <button aria-label="copy" data-title-succeed="已复制！"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+</pre><td class="rouge-code"><pre><span class="nt">&lt;mirror&gt;</span>
+    <span class="nt">&lt;id&gt;</span>aliyunmaven<span class="nt">&lt;/id&gt;</span>
+    <span class="nt">&lt;mirrorOf&gt;</span>*<span class="nt">&lt;/mirrorOf&gt;</span>
+    <span class="nt">&lt;name&gt;</span>阿里云公共仓库<span class="nt">&lt;/name&gt;</span>
+    <span class="nt">&lt;url&gt;</span>https://maven.aliyun.com/repository/public<span class="nt">&lt;/url&gt;</span>
+<span class="nt">&lt;/mirror&gt;</span>
+</pre></table></code></div></div><p>最后执行命令 <code class="language-plaintext highlighter-rouge">mvn spring-boot:run</code> 启动，第一次启动时 maven 会下载很多依赖，因此比较慢。启动日志如下，在浏览器中访问：http://127.0.0.1:8080 就可以收到 <code class="language-plaintext highlighter-rouge">Hello, World!</code> 了。</p><div class="language-plaintext highlighter-rouge"><div class="code-header"> <span data-label-text="Plaintext"><i class="fas fa-code small"></i></span> <button aria-label="copy" data-title-succeed="已复制！"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+</pre><td class="rouge-code"><pre>
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+ :: Spring Boot ::                (v2.6.7)
+
+2022-05-19 20:56:50.286  INFO 51175 --- [           main] com.example.demo.DemoApplication         : xxx
+2022-05-19 20:56:50.295  INFO 51175 --- [           main] com.example.demo.DemoApplication         : xxx
+2022-05-19 20:56:52.859  INFO 51175 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : xxx
+...
+2022-05-19 20:56:54.069  INFO 51175 --- [           main] com.example.demo.DemoApplication         : Started DemoApplication
+
+</pre></table></code></div></div><h2 id="brainfuck"><span class="mr-2">BrainFuck</span><a href="#brainfuck" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2><p>最后介绍一个很有意思的编程语言 BrainFuck。</p><p>BrainFuck 是一种极小化的计算机语言，由 Urban Müller 在 1993 年创建。该语言仅由<strong>八个简单命令和一个指令指针</strong>组成，但是它是<strong>图灵完备</strong>的。</p><p>这篇回答：<a href="https://www.zhihu.com/question/20115374/answer/288346717">什么是图灵完备</a>，简单解释了图灵机、图灵完备的概念。概括点说的话，图灵完备的语言对计算机来说是等价的，也就是说从计算机的角度看 BrainFuck 能完成跟其它图灵完备编程语言（Go、Python、Java）一样的事情。</p><p>先看看它仅有的语法：</p><h5 id="--递增当前指针指向单元格的值"><span class="mr-2"><code class="language-plaintext highlighter-rouge"><span class="mr-2">+</code> : 递增当前指针指向单元格的值</span><a href="#--递增当前指针指向单元格的值" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h5><h5 id="---递减当前指针指向单元格的值"><span class="mr-2"><code class="language-plaintext highlighter-rouge"><span class="mr-2">-</code> : 递减当前指针指向单元格的值</span><a href="#---递减当前指针指向单元格的值" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h5><h5 id="--右移指针"><span class="mr-2"><code class="language-plaintext highlighter-rouge"><span class="mr-2">&gt;</code> : 右移指针</span><a href="#--右移指针" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h5><h5 id="--左移指针"><span class="mr-2"><code class="language-plaintext highlighter-rouge"><span class="mr-2">&lt;</code> : 左移指针</span><a href="#--左移指针" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h5><h5 id="--输出当前指针所指向的单元格值ascii"><span class="mr-2"><code class="language-plaintext highlighter-rouge"><span class="mr-2">.</code> : 输出当前指针所指向的单元格值(ASCII)</span><a href="#--输出当前指针所指向的单元格值ascii" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h5><h5 id="--输入一个值存储在当前指针所指向的单元格"><span class="mr-2"><code class="language-plaintext highlighter-rouge"><span class="mr-2">,</code> : 输入一个值存储在当前指针所指向的单元格</span><a href="#--输入一个值存储在当前指针所指向的单元格" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h5><h5 id="--如果当前指针所指向的单元格值为-0则跳转到与之对应的-"><span class="mr-2"><code class="language-plaintext highlighter-rouge"><span class="mr-2">[</code> : 如果当前指针所指向的单元格值<strong>为</strong> 0，则跳转到与之对应的 <code class="language-plaintext highlighter-rouge"><span class="mr-2">]</code></span><a href="#--如果当前指针所指向的单元格值为-0则跳转到与之对应的-" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h5><h5 id="--如果当前指针所指向的单元格值不为-0则跳转到与之对应的-"><span class="mr-2"><code class="language-plaintext highlighter-rouge"><span class="mr-2">]</code> : 如果当前指针所指向的单元格值<strong>不为</strong> 0，则跳转到与之对应的 <code class="language-plaintext highlighter-rouge"><span class="mr-2">[</code></span><a href="#--如果当前指针所指向的单元格值不为-0则跳转到与之对应的-" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h5><p>再看看它的 Hello World 代码，确实挺 “fuck” 的：</p><div class="language-plaintext highlighter-rouge"><div class="code-header"> <span data-label-text="Plaintext"><i class="fas fa-code small"></i></span> <button aria-label="copy" data-title-succeed="已复制！"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre><td class="rouge-code"><pre>++++++++++[&gt;+++++++&gt;++++++++++&gt;+++&gt;+&lt;&lt;&lt;&lt;-]&gt;++.&gt;+.+++++++..+++.&gt;++.&lt;&lt;+++++++++++++++.&gt;.+++.------.--------.&gt;+.&gt;.
+</pre></table></code></div></div><p>最后运行起来，在 macOS 下运行它：</p><div class="language-shell highlighter-rouge"><div class="code-header"> <span data-label-text="Shell"><i class="fas fa-code small"></i></span> <button aria-label="copy" data-title-succeed="已复制！"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+</pre><td class="rouge-code"><pre><span class="c"># 安装用 C 语言写的解释器</span>
+<span class="nv">$ </span>brew <span class="nb">install </span>brainfuck
+<span class="c"># 把 Hello World 的代码写到一个文件中，譬如 hello.bf</span>
+<span class="c"># 用解释器 brainfuck 运行</span>
+<span class="nv">$ </span>brainfuck hello.bf
+Hello World!
+</pre></table></code></div></div><p>最后的最后，如果你不是计算机行业从业人员，没有必要非常系统的学习一门编程语言，只需要了解如何快速搭建好环境，看一些快速入门的书籍就可以了，当需要用程序帮助你完成重复、计算、自动化等工作时，再充分利用好搜索引擎就行。</p><p>编程语言终归只是工具，学会使用工具不是目的，利用工具服务好我们的科研、工程、教育，为祖国的复兴事业添砖加瓦、为人类社会的文明贡献力量亦或是探寻宇宙和生命的意义才是目的。</p></div><div class="post-tail-wrapper text-muted"><div class="post-meta mb-3"> <i class="far fa-folder-open fa-fw mr-1"></i> <a href='/categories/%E6%A0%91%E8%8E%93%E6%B4%BE/'>树莓派</a></div><div class="post-tail-bottom d-flex justify-content-between align-items-center mt-3 pt-5 pb-2"><div class="license-wrapper"> 本文由作者按照 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh"> CC BY-NC-SA 4.0 </a> 进行授权</div><div class="share-wrapper"> <span class="share-label text-muted mr-1">分享</span> <span class="share-icons"> <a href="https://twitter.com/intent/tweet?text=%E6%A0%91%E8%8E%93%E6%B4%BE%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA+-+%E7%86%8A%E7%8C%AB%E5%AD%A6%E8%8B%91&url=%2Fposts%2Fraspberry_pi_code_env%2F" data-toggle="tooltip" data-placement="top" title="Twitter" target="_blank" rel="noopener" aria-label="Twitter"> <i class="fa-fw fab fa-twitter"></i> </a> <a href="https://www.facebook.com/sharer/sharer.php?title=%E6%A0%91%E8%8E%93%E6%B4%BE%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA+-+%E7%86%8A%E7%8C%AB%E5%AD%A6%E8%8B%91&u=%2Fposts%2Fraspberry_pi_code_env%2F" data-toggle="tooltip" data-placement="top" title="Facebook" target="_blank" rel="noopener" aria-label="Facebook"> <i class="fa-fw fab fa-facebook-square"></i> </a> <a href="https://t.me/share/url?url=%2Fposts%2Fraspberry_pi_code_env%2F&text=%E6%A0%91%E8%8E%93%E6%B4%BE%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA+-+%E7%86%8A%E7%8C%AB%E5%AD%A6%E8%8B%91" data-toggle="tooltip" data-placement="top" title="Telegram" target="_blank" rel="noopener" aria-label="Telegram"> <i class="fa-fw fab fa-telegram"></i> </a> <i id="copy-link" class="fa-fw fas fa-link small" data-toggle="tooltip" data-placement="top" title="分享链接" data-title-succeed="链接已复制！"> </i> </span></div></div></div></div></div><div id="panel-wrapper" class="col-xl-3 pl-2 text-muted"><div class="access"><div id="access-lastmod" class="post"><div class="panel-heading">最近更新</div><ul class="post-content pl-0 pb-1 ml-1 mt-2"><li><a href="/posts/raspberry_pi_code_env/">树莓派编程语言环境搭建</a><li><a href="/posts/raspberry_pi_3_party_os/">树莓派第三方操作系统</a></ul></div></div><script src="https://cdn.jsdelivr.net/gh/afeld/bootstrap-toc@1.0.1/dist/bootstrap-toc.min.js"></script><div id="toc-wrapper" class="pl-0 pr-4 mb-5"><div class="panel-heading pl-3 pt-2 mb-2">文章内容</div><nav id="toc" data-toggle="toc"></nav></div></div></div><div class="row"><div id="tail-wrapper" class="col-12 col-lg-11 col-xl-9 pl-3 pr-3 pr-xl-4"><div id="related-posts" class="mt-5 mb-2 mb-sm-4"><h3 class="pt-2 mt-1 mb-4 ml-1" data-toc-skip>相关文章</h3><div class="card-deck mb-4"><div class="card"> <a href="/posts/raspberry_pi_introduce/"><div class="card-body"> <em class="small" data-ts="1650556800" data-df="YYYY-MM-DD" > 2022-04-22 </em><h3 class="pt-0 mt-1 mb-3" data-toc-skip>树莓派介绍</h3><div class="text-muted small"><p> 树莓派（Raspberry Pi）是英国树莓派基金会开发的微型单板计算机，目的是以低价硬件及自由软件促进学校的基本计算机科学教育。 在开始树莓派的介绍前，先简单解释两个名词： 单板计算机、单板机、单板电脑（SBC, Single Board Computer）：是电脑的一种形式，它将计算机的各个部分都组装在一块电路板上，包括微处理器、存储器、输入输出接口等。简单的类比...</p></div></div></a></div><div class="card"> <a href="/posts/raspberry_pi_os/"><div class="card-body"> <em class="small" data-ts="1651248000" data-df="YYYY-MM-DD" > 2022-04-30 </em><h3 class="pt-0 mt-1 mb-3" data-toc-skip>树莓派官方操作系统</h3><div class="text-muted small"><p> Raspberry Pi OS（原为Raspbian）是基于 Debian 开发的操作系统。从 2015 年起，树莓派基金会正式将其作为树莓派的官方操作系统。 安装 Raspberry Pi OS 可以从官方网站或者清华镜像站下载。 常规的安装方式是使用 Raspberry Pi Imager、Etcher 或者 dd 命令行工具烧录到 SD 卡中，再接上鼠标、键盘、显示器，接通电源后...</p></div></div></a></div><div class="card"> <a href="/posts/raspberry_pi_3_party_os/"><div class="card-body"> <em class="small" data-ts="1651593600" data-df="YYYY-MM-DD" > 2022-05-04 </em><h3 class="pt-0 mt-1 mb-3" data-toc-skip>树莓派第三方操作系统</h3><div class="text-muted small"><p> 树莓派除了官方 Raspberry Pi OS，还可以安装各种各样第三方操作系统（不同的 Linux Distro，DistroWatch 上可以查看各发行版的单日点击率），可选的 OS 详见 Awesome Raspberry Pi OS Images，这些第三方操作系统可以分为两大类：通用型和专用型，通用型是像 Windows/macOS 一样供用户日常使用的系统，专用型则有点像现代电视...</p></div></div></a></div></div></div><div class="post-navigation d-flex justify-content-between"> <a href="/posts/ssh/" class="btn btn-outline-primary" prompt="上一篇"><p>SSH 简介</p></a> <a href="/posts/linux_introduce/" class="btn btn-outline-primary" prompt="下一篇"><p>Linux 简介</p></a></div></div></div><footer class="row pl-3 pr-3"><div class="col-12 d-flex justify-content-between align-items-center text-muted pl-0 pr-0"><div class="footer-left"><p class="mb-0"> © 2022 <a href="https://github.com/Panda-Academy">Panda-Academy</a>. <span data-toggle="tooltip" data-placement="top" title="除非另有说明，本网站上的博客文章均由作者按照知识共享署名-非商业性使用-相同方式共享 4.0 国际 (CC BY-NC-SA 4.0) 许可协议进行授权。">保留部分权利。</span></p></div><div class="footer-right"><p class="mb-0"> 本站由 <a href="https://jekyllrb.com" target="_blank" rel="noopener">Jekyll</a> 生成，采用 <a href="https://github.com/cotes2020/jekyll-theme-chirpy" target="_blank" rel="noopener">Chirpy</a> 主题。</p></div></div></footer></div><div id="search-result-wrapper" class="d-flex justify-content-center unloaded"><div class="col-12 col-sm-11 post-content"><div id="search-hints"></div><div id="search-results" class="d-flex flex-wrap justify-content-center text-muted mt-3"></div></div></div></div><div id="mask"></div><a id="back-to-top" href="#" aria-label="back-to-top" class="btn btn-lg btn-box-shadow" role="button"> <i class="fas fa-angle-up"></i> </a><div id="notification" class="toast" role="alert" aria-live="assertive" aria-atomic="true" data-animation="true" data-autohide="false"><div class="toast-header"> <button type="button" class="ml-2 ml-auto close" data-dismiss="toast" aria-label="Close"> <span aria-hidden="true">&times;</span> </button></div><div class="toast-body text-center pt-0"><p class="pl-2 pr-2 mb-3"></p><button type="button" class="btn btn-primary" aria-label="Update"> </button></div></div><script src="https://cdn.jsdelivr.net/npm/simple-jekyll-search@1.10.0/dest/simple-jekyll-search.min.js"></script> <script> SimpleJekyllSearch({ searchInput: document.getElementById('search-input'), resultsContainer: document.getElementById('search-results'), json: '/assets/js/data/search.json', searchResultTemplate: '<div class="pl-1 pr-1 pl-sm-2 pr-sm-2 pl-lg-4 pr-lg-4 pl-xl-0 pr-xl-0"> <a href="{url}">{title}</a><div class="post-meta d-flex flex-column flex-sm-row text-muted mt-1 mb-1"> {categories} {tags}</div><p>{snippet}</p></div>', noResultsText: '<p class="mt-5">搜索结果为空</p>', templateMiddleware: function(prop, value, template) { if (prop === 'categories') { if (value === '') { return `${value}`; } else { return `<div class="mr-sm-4"><i class="far fa-folder fa-fw"></i>${value}</div>`; } } if (prop === 'tags') { if (value === '') { return `${value}`; } else { return `<div><i class="fa fa-tag fa-fw"></i>${value}</div>`; } } } }); </script> <script src="https://cdn.jsdelivr.net/combine/npm/magnific-popup@1/dist/jquery.magnific-popup.min.js,npm/lozad/dist/lozad.min.js,npm/clipboard@2/dist/clipboard.min.js"></script> <script src="https://cdn.jsdelivr.net/combine/npm/dayjs@1/dayjs.min.js,npm/dayjs@1/locale/zh.min.js,npm/dayjs@1/plugin/relativeTime.min.js,npm/dayjs@1/plugin/localizedFormat.min.js"></script> <script defer src="/assets/js/dist/post.min.js"></script> <script src="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/js/bootstrap.bundle.min.js"></script> <script defer src="/app.js"></script>
